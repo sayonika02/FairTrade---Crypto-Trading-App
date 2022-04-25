@@ -14,12 +14,14 @@ public class Buy extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;    
+    private javax.swing.JTextArea jTextArea1;   
+    private String uname; 
 
     /**
      * Creates new form Buy
      */
-    public Buy() {
+    public Buy(String name){
+        uname = name;
         initComponents();
         setVisible(true);
         displayAvailable();
@@ -164,18 +166,19 @@ public class Buy extends javax.swing.JFrame {
             }
 
             if(flag == 1){
-                sql = "INSERT INTO bought(cname, cprice, cqty, total) VALUES(?,?,?,?)" ;
+                sql = "INSERT INTO bought(uname, cname, cprice, cqty, total) VALUES(?,?,?,?,?)" ;
                 PreparedStatement pstmt = con.prepareStatement(sql);
-                pstmt.setString(1, name);
-                pstmt.setInt(2, cPrice);
-                pstmt.setInt(3, qty);
-                pstmt.setInt(4, cPrice * qty);
+                pstmt.setString(1, uname);
+                pstmt.setString(2, name);
+                pstmt.setInt(3, cPrice);
+                pstmt.setInt(4, qty);
+                pstmt.setInt(5, cPrice * qty);
                 pstmt.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Bought Successfully", "Buying Success", 1);
             }
 
             this.dispose();
-            new Home();
+            new Home(uname);
 
         }catch(Exception e){
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );

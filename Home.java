@@ -15,8 +15,10 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JButton sellbtn;
+    private String uname;
 
-    public Home() {
+    public Home(String name) {
+        this.uname = name;
         initComponents();
         setVisible(true);
         displayBought();
@@ -146,9 +148,10 @@ public class Home extends javax.swing.JFrame {
             Class.forName("org.sqlite.JDBC");
             java.sql.Connection con = DriverManager.getConnection("jdbc:sqlite:C:/Users/dassa/CRYPTO.db");
             
-            java.sql.Statement stmt = con.createStatement();
-            String sql = "SELECT cname, cqty, total FROM bought";
-            ResultSet rs=stmt.executeQuery(sql);  //obj contains the count table
+            String sql = "SELECT cname, cqty, total FROM bought WHERE uname=?";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, uname);
+            ResultSet rs=pstmt.executeQuery(sql);  //obj contains the count table
             String resultText = "Currency Name\t   Quanity\tTotal Price\n";
             while(rs.next()){
                 String cName = rs.getString("cname");
@@ -165,11 +168,11 @@ public class Home extends javax.swing.JFrame {
     
     private void buybtnActionPerformed(java.awt.event.ActionEvent evt) {                                       
         this.dispose();
-        new Buy();
+        new Buy(uname);
     }                                      
 
     private void sellbtnActionPerformed(java.awt.event.ActionEvent evt) {                                        
         this.dispose();
-        new Sell();
+        new Sell(uname);
     }            
 }

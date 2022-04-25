@@ -15,8 +15,10 @@ public class Sell extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
+    private String uname;
 
-    public Sell() {
+    public Sell(String name) {
+        uname = name;
         initComponents();
         setVisible(true);
         displayBought();
@@ -121,9 +123,10 @@ public class Sell extends javax.swing.JFrame {
             Class.forName("org.sqlite.JDBC");
             java.sql.Connection con = DriverManager.getConnection("jdbc:sqlite:C:/Users/dassa/CRYPTO.db");
             
-            java.sql.Statement stmt = con.createStatement();
-            String sql = "SELECT cname, cqty, total FROM bought";
-            ResultSet rs=stmt.executeQuery(sql);  //obj contains the count table
+            String sql = "SELECT cname, cqty, total FROM bought WHERE uname=?";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, uname);
+            ResultSet rs=pstmt.executeQuery(sql);  //obj contains the count table
             String resultText = "Currency Name\t   Quanity\tTotal Price\n";
             while(rs.next()){
                 String cName = rs.getString("cname");
@@ -146,9 +149,10 @@ public class Sell extends javax.swing.JFrame {
             String name = cName.getText();
             Integer qty = Integer.valueOf(cQty.getText());
             
-            java.sql.Statement stmt = con.createStatement();
-            String sql = "SELECT cname, cqty, cprice FROM bought";
-            ResultSet rs=stmt.executeQuery(sql);
+            String sql = "SELECT cname, cqty, total FROM bought WHERE uname=?";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, uname);
+            ResultSet rs=pstmt.executeQuery(sql);  //obj contains the count table
             while(rs.next()){
                 String cName = rs.getString("cname"); 
                 Integer cQty = rs.getInt("cqty");
@@ -158,18 +162,20 @@ public class Sell extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "Quantity Exceeded", "qty exceed", 1);
                     }
                     else if(qty == cQty){
-                        sql = "DELETE FROM bought WHERE cname = ?";
-                        PreparedStatement pstmt = con.prepareStatement(sql);
+                        sql = "DELETE FROM bought WHERE cname = ? and uname = ?";
+                        pstmt = con.prepareStatement(sql);
                         pstmt.setString(1, name);
+                        pstmt.setString(2, uname);
                         pstmt.executeUpdate();
                         JOptionPane.showMessageDialog(null, "Sold Successfully", "Selling Success", 1);
                     }
                     else if(qty < cQty){
-                        sql = "UPDATE bought SET cqty=?, total=? WHERE cname = ?";
+                        sql = "UPDATE bought SET cqty=?, total=? WHERE cname = ? and uname = ?";
                         PreparedStatement pstmt = con.prepareStatement(sql);
                         pstmt.setInt(1, cQty - qty);
                         pstmt.setInt(2, cPrice * (cQty - qty));
                         pstmt.setString(3, name);
+                        pstmt.setString(4, uname);
                         pstmt.executeUpdate();
                         JOptionPane.showMessageDialog(null, "Sold Successfully", "Selling Success", 1);
                     }
@@ -178,7 +184,7 @@ public class Sell extends javax.swing.JFrame {
             }
 
             this.dispose();
-            new Home();
+            new Home(uname);
 
         }catch(Exception e){
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
