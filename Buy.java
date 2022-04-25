@@ -143,7 +143,7 @@ public class Buy extends javax.swing.JFrame {
     private void buybtnActionPerformed(java.awt.event.ActionEvent evt) {    
         try{
             Class.forName("org.sqlite.JDBC");
-            java.sql.Connection con = DriverManager.getConnection("jdbc:sqlite:C:/Users/dassa/LOGIN.db");
+            java.sql.Connection con = DriverManager.getConnection("jdbc:sqlite:C:/Users/dassa/CRYPTO.db");
             
             String name = cName.getText();
             Integer qty = Integer.valueOf(cQty.getText());
