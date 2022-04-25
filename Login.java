@@ -212,9 +212,5 @@ public class Login extends javax.swing.JFrame {
                 new Login().setVisible(true);
             }
         });
-    }
-
-    // Variables declaration - do not modify                     
-   
-    // End of variables declaration                   
+    }                
 }

@@ -18,7 +18,7 @@ public class Home extends javax.swing.JFrame {
     private String uname;
 
     public Home(String name) {
-        this.uname = name;
+        uname = name;
         initComponents();
         setVisible(true);
         displayBought();
