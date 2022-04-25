@@ -164,13 +164,12 @@ public class Buy extends javax.swing.JFrame {
             }
 
             if(flag == 1){
-                sql = "INSERT INTO bought(cname, cprie, cqty, total) VALUES(?,?,?,?)" ;
+                sql = "INSERT INTO bought(cname, cprice, cqty, total) VALUES(?,?,?,?)" ;
                 PreparedStatement pstmt = con.prepareStatement(sql);
                 pstmt.setString(1, name);
                 pstmt.setInt(2, cPrice);
                 pstmt.setInt(3, qty);
                 pstmt.setInt(4, cPrice * qty);
-                // int i = pstmt.executeUpdate();
                 pstmt.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Bought Successfully", "Buying Success", 1);
             }
