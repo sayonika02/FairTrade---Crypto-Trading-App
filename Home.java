@@ -139,7 +139,7 @@ public class Home extends javax.swing.JFrame {
             String resultText = "Currency Name\t\tCurrency Price\n";
             while(rs.next()){
                 String cName = rs.getString("cname");
-                String cPrice = rs.getString("cprice");
+                Integer cPrice = rs.getInt("cprice");
                 resultText += cName + "\t\t" + cPrice + "\n";
             }
             jTextArea1.setText(resultText);

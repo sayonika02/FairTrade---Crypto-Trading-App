@@ -145,15 +145,38 @@ public class Buy extends javax.swing.JFrame {
             Class.forName("org.sqlite.JDBC");
             java.sql.Connection con = DriverManager.getConnection("jdbc:sqlite:C:/Users/dassa/CRYPTO.db");
             
+            int flag = 0;
+            Integer cPrice;
+
             String name = cName.getText();
             Integer qty = Integer.valueOf(cQty.getText());
             
-            String sql = "INSERT INTO bought(cname, cqty) VALUES(?,?)" ;
-            PreparedStatement pstmt = con.prepareStatement(sql);
-            pstmt.setString(1, name);
-            pstmt.setInt(2, qty);
-            // int i = pstmt.executeUpdate();
-            pstmt.executeUpdate();
+            java.sql.Statement stmt = con.createStatement();
+            String sql = "SELECT cname, cprice FROM available";
+            ResultSet rs=stmt.executeQuery(sql);
+            while(rs.next()){
+                String cName = rs.getString("cname");                
+                cPrice = rs.getInt("cprice");
+                if(name == cName){
+                    flag = 1;
+                    break;
+                }
+            }
+
+            if(flag == 1){
+                sql = "INSERT INTO bought(cname, cprie, cqty, total) VALUES(?,?,?,?)" ;
+                PreparedStatement pstmt = con.prepareStatement(sql);
+                pstmt.setString(1, name);
+                pstmt.setInt(2, cPrice);
+                pstmt.setInt(3, qty);
+                pstmt.setInt(4, cPrice * qty);
+                // int i = pstmt.executeUpdate();
+                pstmt.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Bought Successfully", "Buying Success", 1);
+            }
+
+            this.dispose();
+            new Home();
 
         }catch(Exception e){
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
