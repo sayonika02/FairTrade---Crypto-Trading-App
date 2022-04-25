@@ -169,6 +169,7 @@ public class Home extends javax.swing.JFrame {
     }                                      
 
     private void sellbtnActionPerformed(java.awt.event.ActionEvent evt) {                                        
-        // TODO add your handling code here:
+        this.dispose();
+        new Sell();
     }            
 }
