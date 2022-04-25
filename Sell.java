@@ -171,7 +171,7 @@ public class Sell extends javax.swing.JFrame {
                     }
                     else if(qty < cQty){
                         sql = "UPDATE bought SET cqty=?, total=? WHERE cname = ? and uname = ?";
-                        PreparedStatement pstmt = con.prepareStatement(sql);
+                        pstmt = con.prepareStatement(sql);
                         pstmt.setInt(1, cQty - qty);
                         pstmt.setInt(2, cPrice * (cQty - qty));
                         pstmt.setString(3, name);
