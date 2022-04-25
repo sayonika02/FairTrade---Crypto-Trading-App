@@ -3,15 +3,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 
-/**
- *
- * @author shour
- */
 public class Home extends javax.swing.JFrame {
 
     private javax.swing.JButton buybtn;
@@ -157,12 +149,12 @@ public class Home extends javax.swing.JFrame {
             java.sql.Statement stmt = con.createStatement();
             String sql = "SELECT cname, cqty, total FROM bought";
             ResultSet rs=stmt.executeQuery(sql);  //obj contains the count table
-            String resultText = "Currency Name\tQuanity\tTotal Price\n";
+            String resultText = "Currency Name\t   Quanity\tTotal Price\n";
             while(rs.next()){
                 String cName = rs.getString("cname");
                 Integer cQty = rs.getInt("cqty");
                 Integer total = rs.getInt("total");
-                resultText += cName + "\t" + cQty + "\t" + total + "\n";
+                resultText += cName + "\t   " + cQty + "\t" + total + "\n";
             }
             jTextArea2.setText(resultText);
         }catch(Exception e){
