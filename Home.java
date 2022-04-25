@@ -155,13 +155,14 @@ public class Home extends javax.swing.JFrame {
             java.sql.Connection con = DriverManager.getConnection("jdbc:sqlite:C:/Users/dassa/CRYPTO.db");
             
             java.sql.Statement stmt = con.createStatement();
-            String sql = "SELECT cname, cqty FROM bought";
+            String sql = "SELECT cname, cqty, total FROM bought";
             ResultSet rs=stmt.executeQuery(sql);  //obj contains the count table
-            String resultText = "Currency Name\t\tCurrency Quantity\n";
+            String resultText = "Currency Name\tQuanity\tTotal Price\n";
             while(rs.next()){
                 String cName = rs.getString("cname");
                 Integer cQty = rs.getInt("cqty");
-                resultText += cName + "\t\t" + cQty + "\n";
+                Integer total = rs.getInt("total");
+                resultText += cName + "\t" + cQty + "\t" + total + "\n";
             }
             jTextArea2.setText(resultText);
         }catch(Exception e){
