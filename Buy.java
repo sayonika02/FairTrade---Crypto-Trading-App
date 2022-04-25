@@ -163,6 +163,8 @@ public class Buy extends javax.swing.JFrame {
                 }
             }
 
+            System.out.println(flag);
+
             if(flag == 1){
                 sql = "INSERT INTO bought(cname, cprice, cqty, total) VALUES(?,?,?,?)" ;
                 PreparedStatement pstmt = con.prepareStatement(sql);
