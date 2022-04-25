@@ -146,7 +146,7 @@ public class Buy extends javax.swing.JFrame {
             java.sql.Connection con = DriverManager.getConnection("jdbc:sqlite:C:/Users/dassa/CRYPTO.db");
             
             int flag = 0;
-            Integer cPrice;
+            Integer cPrice = 0;
 
             String name = cName.getText();
             Integer qty = Integer.valueOf(cQty.getText());
