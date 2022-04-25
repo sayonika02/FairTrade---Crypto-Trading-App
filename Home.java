@@ -151,7 +151,7 @@ public class Home extends javax.swing.JFrame {
             String sql = "SELECT cname, cqty, total FROM bought WHERE uname=?";
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setString(1, uname);
-            ResultSet rs=pstmt.executeQuery(sql);  //obj contains the count table
+            ResultSet rs=pstmt.executeQuery();  //obj contains the count table
             String resultText = "Currency Name\t   Quanity\tTotal Price\n";
             while(rs.next()){
                 String cName = rs.getString("cname");
