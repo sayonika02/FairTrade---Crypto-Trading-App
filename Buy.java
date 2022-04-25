@@ -157,7 +157,7 @@ public class Buy extends javax.swing.JFrame {
             while(rs.next()){
                 String cName = rs.getString("cname");                
                 cPrice = rs.getInt("cprice");
-                if(name == cName){
+                if(name.equals(cName)){
                     flag = 1;
                     break;
                 }
