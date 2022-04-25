@@ -141,5 +141,23 @@ public class Buy extends javax.swing.JFrame {
     }
 
     private void buybtnActionPerformed(java.awt.event.ActionEvent evt) {    
+        try{
+            Class.forName("org.sqlite.JDBC");
+            java.sql.Connection con = DriverManager.getConnection("jdbc:sqlite:C:/Users/dassa/LOGIN.db");
+            
+            String name = cName.getText();
+            Integer qty = Integer.valueOf(cQty.getText());
+            
+            String sql = "INSERT INTO bought(cname, cqty) VALUES(?,?)" ;
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, name);
+            pstmt.setInt(2, qty);
+            // int i = pstmt.executeUpdate();
+            pstmt.executeUpdate();
+
+        }catch(Exception e){
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
+        }
     }  
 }

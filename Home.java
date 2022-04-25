@@ -155,13 +155,13 @@ public class Home extends javax.swing.JFrame {
             java.sql.Connection con = DriverManager.getConnection("jdbc:sqlite:C:/Users/dassa/CRYPTO.db");
             
             java.sql.Statement stmt = con.createStatement();
-            String sql = "SELECT cname, cprice FROM available";
+            String sql = "SELECT cname, cqty FROM bought";
             ResultSet rs=stmt.executeQuery(sql);  //obj contains the count table
-            String resultText = "Currency Name\t\tCurrency Price\n";
+            String resultText = "Currency Name\t\tCurrency Quantity\n";
             while(rs.next()){
                 String cName = rs.getString("cname");
-                String cPrice = rs.getString("cprice");
-                resultText += cName + "\t\t" + cPrice + "\n";
+                Integer cQty = rs.getInt("cqty");
+                resultText += cName + "\t\t" + cQty + "\n";
             }
             jTextArea2.setText(resultText);
         }catch(Exception e){
@@ -171,7 +171,8 @@ public class Home extends javax.swing.JFrame {
     }
     
     private void buybtnActionPerformed(java.awt.event.ActionEvent evt) {                                       
-        // TODO add your handling code here:
+        this.dispose();
+        new Buy();
     }                                      
 
     private void sellbtnActionPerformed(java.awt.event.ActionEvent evt) {                                        
