@@ -23,7 +23,6 @@ public class Balance extends javax.swing.JFrame {
         setVisible(true);
     }
 
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
