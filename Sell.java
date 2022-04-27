@@ -4,8 +4,9 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-public class Sell extends javax.swing.JFrame {
+public class Sell extends javax.swing.JFrame {   
 
+    private javax.swing.JButton backbtn;
     private javax.swing.JButton sellbtn;
     private javax.swing.JTextField cName;
     private javax.swing.JTextField cQty;
@@ -16,9 +17,11 @@ public class Sell extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private String uname;
+    private Integer bal;
 
-    public Sell(String name) {
+    public Sell(String name, Integer balance) {
         uname = name;
+        bal = balance;
         initComponents();
         setVisible(true);
         displayBought();
@@ -42,6 +45,7 @@ public class Sell extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         sellbtn = new javax.swing.JButton();
+        backbtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -58,10 +62,17 @@ public class Sell extends javax.swing.JFrame {
 
         jLabel4.setText("Quantity:");
 
-        sellbtn.setText("Sell");
+        sellbtn.setText("Buy");
         sellbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sellbtnActionPerformed(evt);
+            }
+        });
+
+        backbtn.setText("Back");
+        backbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backbtnActionPerformed(evt);
             }
         });
 
@@ -90,8 +101,10 @@ public class Sell extends javax.swing.JFrame {
                 .addContainerGap(23, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(backbtn)
+                .addGap(43, 43, 43)
                 .addComponent(sellbtn)
-                .addGap(220, 220, 220))
+                .addGap(175, 175, 175))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,7 +124,9 @@ public class Sell extends javax.swing.JFrame {
                     .addComponent(cQty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(sellbtn)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(sellbtn)
+                    .addComponent(backbtn))
                 .addGap(18, 18, 18))
         );
 
@@ -162,6 +177,7 @@ public class Sell extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "Quantity Exceeded", "qty exceed", 1);
                     }
                     else if(qty == cQty){
+                        bal = bal + (qty * cPrice);
                         sql = "DELETE FROM bought WHERE cname = ? and uname = ?";
                         pstmt = con.prepareStatement(sql);
                         pstmt.setString(1, name);
@@ -170,6 +186,7 @@ public class Sell extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "Sold Successfully", "Selling Success", 1);
                     }
                     else if(qty < cQty){
+                        bal = bal + (qty * cPrice);
                         sql = "UPDATE bought SET cqty=?, total=? WHERE cname = ? and uname = ?";
                         pstmt = con.prepareStatement(sql);
                         pstmt.setInt(1, cQty - qty);
@@ -182,13 +199,17 @@ public class Sell extends javax.swing.JFrame {
                     break;
                 }
             }
-
             this.dispose();
-            new Home(uname);
+            new Home(uname, bal);
 
         }catch(Exception e){
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
             System.exit(0);
         }
-    }   
+    }
+    
+    private void backbtnActionPerformed(java.awt.event.ActionEvent evt) { 
+        this.dispose();
+        new Home(uname, bal);
+    }
 }

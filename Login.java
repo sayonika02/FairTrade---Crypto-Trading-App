@@ -141,11 +141,12 @@ public class Login extends javax.swing.JFrame {
             String sql = "SELECT * FROM LOGIN WHERE UNAME = '"+uname1+"'AND PASSWORD = '"+pass1+"'";
             stmt.execute(sql);
             ResultSet rs = stmt.executeQuery(sql);
+            Integer bal = rs.getInt("BAL");
             
             if(rs.next()){
                 JOptionPane.showMessageDialog(null, "Login Successfull", "Login Success", 1);
                 this.dispose();
-                new Home(uname1);
+                new Home(uname1, bal);
             }
             else{
                     JOptionPane.showMessageDialog(null, "Incorrect Username Or Password", "Login Failed", 2);
@@ -164,10 +165,11 @@ public class Login extends javax.swing.JFrame {
             String uname1 = uname.getText();
             String pass1 = String.valueOf(upass.getText());
             
-            String sql = "INSERT INTO LOGIN(UNAME, PASSWORD) VALUES(?,?)" ;
+            String sql = "INSERT INTO LOGIN(UNAME, PASSWORD, BAL) VALUES(?,?,?)" ;
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setString(1, uname1);
             pstmt.setString(2, pass1);
+            pstmt.setInt(3, 10000);
             int i = pstmt.executeUpdate();
             
             if (i > 0){

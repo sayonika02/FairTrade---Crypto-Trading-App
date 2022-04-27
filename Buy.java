@@ -4,8 +4,9 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-public class Buy extends javax.swing.JFrame {
+public class Buy extends javax.swing.JFrame {  
 
+    private javax.swing.JButton backbtn;
     private javax.swing.JButton buybtn;
     private javax.swing.JTextField cName;
     private javax.swing.JTextField cQty;
@@ -16,12 +17,14 @@ public class Buy extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;   
     private String uname; 
+    private Integer bal;
 
     /**
      * Creates new form Buy
      */
-    public Buy(String name){
+    public Buy(String name, Integer balance){
         uname = name;
+        bal = balance;
         initComponents();
         setVisible(true);
         displayAvailable();
@@ -45,6 +48,7 @@ public class Buy extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         buybtn = new javax.swing.JButton();
+        backbtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,6 +69,13 @@ public class Buy extends javax.swing.JFrame {
         buybtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buybtnActionPerformed(evt);
+            }
+        });
+
+        backbtn.setText("Back");
+        backbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backbtnActionPerformed(evt);
             }
         });
 
@@ -93,8 +104,10 @@ public class Buy extends javax.swing.JFrame {
                 .addContainerGap(23, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(backbtn)
+                .addGap(43, 43, 43)
                 .addComponent(buybtn)
-                .addGap(220, 220, 220))
+                .addGap(175, 175, 175))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,12 +127,14 @@ public class Buy extends javax.swing.JFrame {
                     .addComponent(cQty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(buybtn)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buybtn)
+                    .addComponent(backbtn))
                 .addGap(18, 18, 18))
         );
 
         pack();
-    }// </editor-fold>   
+    }//  </editor-fold>   
     
     private void displayAvailable(){
         try{
@@ -165,7 +180,11 @@ public class Buy extends javax.swing.JFrame {
                 }
             }
 
-            if(flag == 1){
+            if (bal < (qty * cPrice)){
+                JOptionPane.showMessageDialog(null, "Insufficient Funds", "Funds low", 1);
+            }
+
+            if((flag == 1) && (bal >= (qty * cPrice))){
                 sql = "INSERT INTO bought(uname, cname, cprice, cqty, total) VALUES(?,?,?,?,?)" ;
                 PreparedStatement pstmt = con.prepareStatement(sql);
                 pstmt.setString(1, uname);
@@ -174,15 +193,21 @@ public class Buy extends javax.swing.JFrame {
                 pstmt.setInt(4, qty);
                 pstmt.setInt(5, cPrice * qty);
                 pstmt.executeUpdate();
+                bal = bal - (qty * cPrice);
                 JOptionPane.showMessageDialog(null, "Bought Successfully", "Buying Success", 1);
             }
 
             this.dispose();
-            new Home(uname);
+            new Home(uname, bal);
 
         }catch(Exception e){
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
             System.exit(0);
         }
-    }  
+    } 
+
+    private void backbtnActionPerformed(java.awt.event.ActionEvent evt) { 
+        this.dispose();
+        new Home(uname, bal);
+    }
 }

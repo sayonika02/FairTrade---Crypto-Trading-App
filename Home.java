@@ -6,21 +6,28 @@ import javax.swing.JOptionPane;
 
 public class Home extends javax.swing.JFrame {
 
+    private javax.swing.JTextField accbal;
+    private javax.swing.JButton balbtn;
     private javax.swing.JButton buybtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JButton logoutbtn;
     private javax.swing.JButton sellbtn;
     private String uname;
+    private Integer bal;
 
-    public Home(String name) {
+    public Home(String name, Integer balance) {
         uname = name;
+        bal = balance;
         initComponents();
         setVisible(true);
+        displayBalance();
         displayBought();
         displayAvailable();
     }
@@ -43,6 +50,10 @@ public class Home extends javax.swing.JFrame {
         jTextArea2 = new javax.swing.JTextArea();
         buybtn = new javax.swing.JButton();
         sellbtn = new javax.swing.JButton();
+        balbtn = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        accbal = new javax.swing.JTextField();
+        logoutbtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -76,51 +87,85 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        balbtn.setText("Add Balance");
+        balbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                balbtnActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Account Balance:");
+
+        logoutbtn.setText("Log Out");
+        logoutbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutbtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(130, 130, 130))
+                .addContainerGap(42, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(130, 130, 130))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(logoutbtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(balbtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buybtn)
+                        .addGap(12, 12, 12)
+                        .addComponent(sellbtn)
+                        .addGap(39, 39, 39))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel3)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(accbal, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(67, 67, 67)
-                .addComponent(buybtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
-                .addComponent(sellbtn)
-                .addGap(80, 80, 80))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(jLabel4)
+                .addGap(8, 8, 8)
+                .addComponent(accbal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buybtn)
-                    .addComponent(sellbtn))
+                    .addComponent(sellbtn)
+                    .addComponent(balbtn)
+                    .addComponent(logoutbtn))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
-    }// </editor-fold>                        
+    }// </editor-fold>      
+    
+    private void displayBalance(){
+        accbal.setText(Integer.toString(bal));
+    }
 
     private void displayAvailable(){
         try{
@@ -168,11 +213,34 @@ public class Home extends javax.swing.JFrame {
     
     private void buybtnActionPerformed(java.awt.event.ActionEvent evt) {                                       
         this.dispose();
-        new Buy(uname);
+        new Buy(uname, bal);
     }                                      
 
     private void sellbtnActionPerformed(java.awt.event.ActionEvent evt) {                                        
         this.dispose();
-        new Sell(uname);
-    }            
+        new Sell(uname, bal);
+    }         
+    
+    private void balbtnActionPerformed(java.awt.event.ActionEvent evt) {  
+        this.dispose();
+        new Balance(uname, bal);
+    }
+
+    private void logoutbtnActionPerformed(java.awt.event.ActionEvent evt) {
+        try{
+            Class.forName("org.sqlite.JDBC");
+            java.sql.Connection con = DriverManager.getConnection("jdbc:sqlite:C:/Users/dassa/LOGIN.db");
+            
+            String sql = "UPDATE login SET BAL=? WHERE uname = ?";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, bal);
+            pstmt.setString(2, uname);
+            pstmt.executeUpdate();
+        }catch(Exception e){
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
+        }  
+        
+    }
 }
