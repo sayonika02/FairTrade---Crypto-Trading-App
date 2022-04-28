@@ -11,7 +11,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton registerbtn;
     private javax.swing.JTextField uname;
     private javax.swing.JTextField upass;
-
     /**
      * Creates new form Login
      */
