@@ -176,7 +176,7 @@ public class Sell extends javax.swing.JFrame {
                         bal = bal + (qty * cPrice);
                         sql = "DELETE FROM bought WHERE cname = ? and uname = ?";
                         pstmt = con.prepareStatement(sql);
-                        pstmt.setString(1, name);
+                        pstmt.setString(1, cName);
                         pstmt.setString(2, uname);
                         pstmt.executeUpdate();
                         JOptionPane.showMessageDialog(null, "Sold Successfully", "Selling Success", 1);
