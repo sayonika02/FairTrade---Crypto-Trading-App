@@ -46,7 +46,7 @@ public class Sell extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Historic", 0, 24)); // NOI18N
-        jLabel1.setText("Buy Cryptos");
+        jLabel1.setText("Sell Cryptos");
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -54,11 +54,11 @@ public class Sell extends javax.swing.JFrame {
 
         jLabel2.setText("Available Cryptos:");
 
-        jLabel3.setText("Enter the cyprto name you would like to buy:");
+        jLabel3.setText("Enter the cyprto name you would like to sell:");
 
         jLabel4.setText("Quantity:");
 
-        sellbtn.setText("Buy");
+        sellbtn.setText("Sell");
         sellbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sellbtnActionPerformed(evt);
@@ -160,7 +160,7 @@ public class Sell extends javax.swing.JFrame {
             String name = cName.getText();
             Integer qty = Integer.valueOf(cQty.getText());
             
-            String sql = "SELECT cname, cqty, total FROM bought WHERE uname=?";
+            String sql = "SELECT cname, cqty, cprice, total FROM bought WHERE uname=?";
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setString(1, uname);
             ResultSet rs=pstmt.executeQuery();  //obj contains the count table
