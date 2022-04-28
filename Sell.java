@@ -198,7 +198,6 @@ public class Sell extends javax.swing.JFrame {
             this.dispose();
             con.close();
             new Home(uname, bal);
-
         }catch(Exception e){
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
             System.exit(0);

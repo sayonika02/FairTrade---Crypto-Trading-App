@@ -234,6 +234,7 @@ public class Home extends javax.swing.JFrame {
             pstmt.executeUpdate();
             this.dispose();
             con.close();
+            System.exit(0);
         }catch(Exception e){
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
             System.exit(0);
