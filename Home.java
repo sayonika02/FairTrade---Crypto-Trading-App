@@ -1,4 +1,5 @@
 import java.sql.*;
+import javax.swing.JOptionPane;
 
 public class Home extends javax.swing.JFrame {
 
@@ -234,6 +235,7 @@ public class Home extends javax.swing.JFrame {
             pstmt.executeUpdate();
             this.dispose();
             con.close();
+            JOptionPane.showMessageDialog(null, "Final balance is :" + bal + "\n\n\nSee ya soon!!!", "LogOut Success", 1);
             System.exit(0);
         }catch(Exception e){
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
