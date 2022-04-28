@@ -232,6 +232,9 @@ public class Home extends javax.swing.JFrame {
             pstmt.setInt(1, bal);
             pstmt.setString(2, uname);
             pstmt.executeUpdate();
+            this.dispose();
+            con.close();
+            new Login();
         }catch(Exception e){
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
             System.exit(0);

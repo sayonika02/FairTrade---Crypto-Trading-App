@@ -134,6 +134,7 @@ public class Login extends javax.swing.JFrame {
             if(rs.next()){
                 JOptionPane.showMessageDialog(null, "Login Successfull", "Login Success", 1);
                 this.dispose();
+                con.close();
                 new Home(uname1, bal);
             }
             else{

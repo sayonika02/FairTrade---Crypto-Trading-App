@@ -194,6 +194,7 @@ public class Buy extends javax.swing.JFrame {
             }
 
             this.dispose();
+            con.close();
             new Home(uname, bal);
 
         }catch(Exception e){
