@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.awt.Color;
 import javax.swing.JOptionPane;
 
 public class Home extends javax.swing.JFrame {
@@ -101,6 +102,7 @@ public class Home extends javax.swing.JFrame {
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
+        getContentPane().setBackground(Color.BLUE);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()

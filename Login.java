@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.sql.*;
 import javax.swing.JOptionPane;
 
@@ -64,6 +65,7 @@ public class Login extends javax.swing.JFrame {
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
+        getContentPane().setBackground(Color.BLUE);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
