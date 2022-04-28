@@ -75,7 +75,7 @@ public class Sell extends javax.swing.JFrame {
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        getContentPane().setBackground(Color.BLUE);
+        getContentPane().setBackground(Color.CYAN);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
