@@ -2,7 +2,7 @@
 OOAD Project, Cryptocurrency trading application made using java
 <br />
 <br />
-Commands to run:
+Commands to run: <br />
 javac Login.java <br />
 javac Home.java <br />
 javac Buy.java <br />
